@@ -1,0 +1,248 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "id": "df61a6ab",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "hypotenuse: 277.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Question 4.1\n",
+    "\n",
+    "import numpy as np\n",
+    "\n",
+    "def h(x, y):\n",
+    "    return (np.sqrt(np.power(np.double(x), 2) + np.power(np.double(y), 2)))\n",
+    "\n",
+    "print(f\"hypotenuse: {h(115, 252)}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "id": "ae2b71c5",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "    N   x             y             h\n",
+      "  0.0 1.0  1.000000e+00  1.414214e+00\n",
+      " 10.0 1.0  1.000000e+10  1.000000e+10\n",
+      " 20.0 1.0  1.000000e+20  1.000000e+20\n",
+      " 30.0 1.0  1.000000e+30  1.000000e+30\n",
+      " 40.0 1.0  1.000000e+40  1.000000e+40\n",
+      " 50.0 1.0  1.000000e+50  1.000000e+50\n",
+      " 60.0 1.0  1.000000e+60  1.000000e+60\n",
+      " 70.0 1.0  1.000000e+70  1.000000e+70\n",
+      " 80.0 1.0  1.000000e+80  1.000000e+80\n",
+      " 90.0 1.0  1.000000e+90  1.000000e+90\n",
+      "100.0 1.0 1.000000e+100 1.000000e+100\n",
+      "110.0 1.0 1.000000e+110 1.000000e+110\n",
+      "120.0 1.0 1.000000e+120 1.000000e+120\n",
+      "130.0 1.0 1.000000e+130 1.000000e+130\n",
+      "140.0 1.0 1.000000e+140 1.000000e+140\n",
+      "150.0 1.0 1.000000e+150 1.000000e+150\n",
+      "160.0 1.0 1.000000e+160           inf\n",
+      "170.0 1.0 1.000000e+170           inf\n",
+      "180.0 1.0 1.000000e+180           inf\n",
+      "190.0 1.0 1.000000e+190           inf\n",
+      "200.0 1.0 1.000000e+200           inf\n",
+      "210.0 1.0 1.000000e+210           inf\n",
+      "220.0 1.0 1.000000e+220           inf\n",
+      "230.0 1.0 1.000000e+230           inf\n",
+      "240.0 1.0 1.000000e+240           inf\n",
+      "250.0 1.0 1.000000e+250           inf\n",
+      "260.0 1.0 1.000000e+260           inf\n",
+      "270.0 1.0 1.000000e+270           inf\n",
+      "280.0 1.0 1.000000e+280           inf\n",
+      "290.0 1.0 1.000000e+290           inf\n",
+      "300.0 1.0 1.000000e+300           inf\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/var/folders/0t/37zzt2wj3ygb5dmbchvqxtdc0000gn/T/ipykernel_1267/1299517326.py:23: RuntimeWarning: overflow encountered in power\n",
+      "  h_list.append(np.sqrt(np.power(x_list[i], 2) + (np.power(y_list[i], 2))))\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Question 4.2\n",
+    "\n",
+    "import pandas as pd\n",
+    "import numpy as np\n",
+    "\n",
+    "def create_table(start_N, end_N):\n",
+    "    N_list = []\n",
+    "    x_list = []\n",
+    "    y_list = []\n",
+    "    h_list = []\n",
+    "\n",
+    "    start_N = 0\n",
+    "\n",
+    "    while start_N <= end_N:\n",
+    "        N_list.append(np.double(start_N))\n",
+    "        x_list.append(np.double(1))\n",
+    "        start_N += 10\n",
+    "    \n",
+    "    for i in range(len(N_list)):\n",
+    "        y_list.append(np.power(np.double(10), N_list[i]))\n",
+    "\n",
+    "    for i in range(len(N_list)):\n",
+    "        h_list.append(np.sqrt(np.power(x_list[i], 2) + (np.power(y_list[i], 2))))\n",
+    "    \n",
+    "    data = {\"N\": N_list, \"x\": x_list, \"y\": y_list, \"h\": h_list}\n",
+    "\n",
+    "    df = pd.DataFrame(data).to_string(index = False)\n",
+    "    \n",
+    "    return df\n",
+    "\n",
+    "print(create_table(0, 300))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 41,
+   "id": "2a5fff37",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "hypotenuse: 277.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Question 4.3 c.i.\n",
+    "\n",
+    "import numpy as np\n",
+    "\n",
+    "def h(x, y):\n",
+    "    if x <= y:\n",
+    "        return (np.double(y) * (np.sqrt(1 + np.power((np.double(x)/np.double(y)), 2))))\n",
+    "    else:\n",
+    "        return (np.double(x) * (np.sqrt(1 + np.power((np.double(y)/np.double(x)), 2))))\n",
+    "    \n",
+    "print(f\"hypotenuse: {h(115, 252)}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "id": "10d9ac1b",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "    N   x             y             h\n",
+      "  0.0 1.0  1.000000e+00  1.414214e+00\n",
+      " 10.0 1.0  1.000000e+10  1.000000e+10\n",
+      " 20.0 1.0  1.000000e+20  1.000000e+20\n",
+      " 30.0 1.0  1.000000e+30  1.000000e+30\n",
+      " 40.0 1.0  1.000000e+40  1.000000e+40\n",
+      " 50.0 1.0  1.000000e+50  1.000000e+50\n",
+      " 60.0 1.0  1.000000e+60  1.000000e+60\n",
+      " 70.0 1.0  1.000000e+70  1.000000e+70\n",
+      " 80.0 1.0  1.000000e+80  1.000000e+80\n",
+      " 90.0 1.0  1.000000e+90  1.000000e+90\n",
+      "100.0 1.0 1.000000e+100 1.000000e+100\n",
+      "110.0 1.0 1.000000e+110 1.000000e+110\n",
+      "120.0 1.0 1.000000e+120 1.000000e+120\n",
+      "130.0 1.0 1.000000e+130 1.000000e+130\n",
+      "140.0 1.0 1.000000e+140 1.000000e+140\n",
+      "150.0 1.0 1.000000e+150 1.000000e+150\n",
+      "160.0 1.0 1.000000e+160 1.000000e+160\n",
+      "170.0 1.0 1.000000e+170 1.000000e+170\n",
+      "180.0 1.0 1.000000e+180 1.000000e+180\n",
+      "190.0 1.0 1.000000e+190 1.000000e+190\n",
+      "200.0 1.0 1.000000e+200 1.000000e+200\n",
+      "210.0 1.0 1.000000e+210 1.000000e+210\n",
+      "220.0 1.0 1.000000e+220 1.000000e+220\n",
+      "230.0 1.0 1.000000e+230 1.000000e+230\n",
+      "240.0 1.0 1.000000e+240 1.000000e+240\n",
+      "250.0 1.0 1.000000e+250 1.000000e+250\n",
+      "260.0 1.0 1.000000e+260 1.000000e+260\n",
+      "270.0 1.0 1.000000e+270 1.000000e+270\n",
+      "280.0 1.0 1.000000e+280 1.000000e+280\n",
+      "290.0 1.0 1.000000e+290 1.000000e+290\n",
+      "300.0 1.0 1.000000e+300 1.000000e+300\n"
+     ]
+    }
+   ],
+   "source": [
+    "#Question 4.3cii\n",
+    "\n",
+    "import pandas as pd\n",
+    "import numpy as np\n",
+    "\n",
+    "def create_table(start_N, end_N):\n",
+    "    N_list = []\n",
+    "    x_list = []\n",
+    "    y_list = []\n",
+    "    h_list = []\n",
+    "\n",
+    "    start_N = 0\n",
+    "\n",
+    "    while start_N <= end_N:\n",
+    "        N_list.append(np.double(start_N))\n",
+    "        x_list.append(np.double(1))\n",
+    "        start_N += 10\n",
+    "    \n",
+    "    for i in range(len(N_list)):\n",
+    "        y_list.append(np.power(np.double(10), N_list[i]))\n",
+    "\n",
+    "    for i in range(len(N_list)):\n",
+    "        if (x_list[i] <= y_list[i]):\n",
+    "            h_list.append(np.double(y_list[i]) * (np.sqrt(1 + np.power((np.double(x_list[i])/np.double(y_list[i])), 2))))\n",
+    "        else:\n",
+    "            h_list.append(np.double(x_list[i]) * (np.sqrt(1 + np.power((np.double(y_list[i])/np.double(x_list[i])), 2))))\n",
+    "\n",
+    "    \n",
+    "    data = {\"N\": N_list, \"x\": x_list, \"y\": y_list, \"h\": h_list}\n",
+    "\n",
+    "    df = pd.DataFrame(data).to_string(index = False)\n",
+    "    \n",
+    "    return df\n",
+    "\n",
+    "print(create_table(0, 300))"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "python_ml",
+   "language": "python",
+   "name": "python_ml"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
